@@ -6,17 +6,19 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
+
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Layout Sistema</title>
 </h:head>
 <h:body>
 	<p:layout fullPage="true">
 		<p:layoutUnit position="north">
 			<ui:insert name="Menu" />
 		</p:layoutUnit>
-		<ui:insert name="Conteudo" />
-		<p:layoutUnit position="center">
 
+		<p:layoutUnit position="center">
+			<ui:insert name="Conteudo" />
 		</p:layoutUnit>
 	</p:layout>
 </h:body>
