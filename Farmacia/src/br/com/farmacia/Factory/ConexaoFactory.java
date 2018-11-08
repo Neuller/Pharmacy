@@ -8,7 +8,7 @@ public class ConexaoFactory {
 
 	private static final String USUARIO = "root";
 	private static final String SENHA = "123456";
-	private static final String URL = "jdbc:mysql://localhost:3306/sistema";
+	private static final String URL = "jdbc:mysql://localhost:3306/Sistema";
 
 	public static Connection conectar() throws SQLException {
 		Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
@@ -21,6 +21,7 @@ public class ConexaoFactory {
 			Connection conexao = ConexaoFactory.conectar();
 			System.out.println("Conectado com Suscesso!");
 		} catch (SQLException ex) {
+			ex.printStackTrace();
 			System.out.println("Conexão Falhou!");
 		}
 	}
