@@ -84,6 +84,36 @@ public class FornecedoresDAO {
 
 	}
 
+	public ArrayList<Fornecedores> buscaPorDescricao(Fornecedores F) throws SQLException {
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT idFornecedores, Descricao ");
+		sql.append("FROM Fornecedores ");
+		sql.append("WHERE Descricao LIKE ? ");
+		sql.append("ORDER BY Descricao ASC ");
+
+		Connection conexao = ConexaoFactory.conectar();
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+
+		comando.setString(1, "%" + F.getDescricao() + "%");
+
+		ResultSet resultado = comando.executeQuery();
+
+		ArrayList<Fornecedores> lista = new ArrayList<Fornecedores>();
+
+		while (resultado.next()) {
+			Fornecedores item = new Fornecedores();
+			item.setIdFornecedores(resultado.getInt("idFornecedores"));
+			item.setDescricao(resultado.getString("Descricao"));
+
+			lista.add(item);
+		}
+
+		return lista;
+	}
+
 	public ArrayList<Fornecedores> listar() throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
@@ -110,6 +140,7 @@ public class FornecedoresDAO {
 		return lista;
 	}
 
+	
 	// Testes Unitários
 	public static void main(String[] args) {
 
@@ -148,9 +179,8 @@ public class FornecedoresDAO {
 		 * { // TODO Auto-generated catch block e.printStackTrace();
 		 * System.out.println("Erro ao Editar!"); }
 		 * 
-		 * 
-		 * Fornecedores f1 = new Fornecedores(); f1.setIdFornecedores(1);
-		 * f1.setDescricao("Nserv");
+		 * // Teste Buscar por Código Fornecedores f1 = new Fornecedores();
+		 * f1.setIdFornecedores(1); f1.setDescricao("Nserv");
 		 * 
 		 * FornecedoresDAO FDAO = new FornecedoresDAO();
 		 * 
@@ -158,8 +188,8 @@ public class FornecedoresDAO {
 		 * f1); } catch (SQLException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); System.out.println("Erro ao Buscar!"); }
 		 * 
-		 * 
-		 * FornecedoresDAO FDAO = new FornecedoresDAO();
+		 * // Teste Listar Registros FornecedoresDAO FDAO = new
+		 * FornecedoresDAO();
 		 * 
 		 * try {
 		 * 
@@ -170,7 +200,28 @@ public class FornecedoresDAO {
 		 * } catch (SQLException e) { // TODO Auto-generated catch block
 		 * e.printStackTrace(); System.out.println("Erro ao Listar Registros!");
 		 * }
+		 * 
+		 * 
+		 * // Teste Buscar por Descrição Fornecedores f1 = new Fornecedores();
+		 * f1.setDescricao("Nse");
+		 * 
+		 * FornecedoresDAO FDAO = new FornecedoresDAO();
+		 * 
+		 * try {
+		 * 
+		 * ArrayList<Fornecedores> lista = FDAO.buscaPorDescricao(f1);
+		 * 
+		 * for (Fornecedores f : lista) {
+		 * 
+		 * System.out.println("Resultado: " + f);
+		 * 
+		 * }
+		 * 
+		 * } catch (SQLException e) {
+		 * 
+		 * e.printStackTrace(); System.out.println("Erro ao Buscar!");
+		 * 
+		 * }
 		 */
 	}
-
 }
