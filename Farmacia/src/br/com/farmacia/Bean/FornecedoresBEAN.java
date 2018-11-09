@@ -10,6 +10,7 @@ import javax.faces.model.ListDataModel;
 
 import br.com.farmacia.DAO.FornecedoresDAO;
 import br.com.farmacia.Domain.Fornecedores;
+import br.com.farmacia.Util.JSFUtil;
 
 // Comunicação JAVA
 @ManagedBean(name = "MBFornecedores")
@@ -45,6 +46,7 @@ public class FornecedoresBEAN {
 			//Converter em DataModel
 			itens = new ListDataModel<Fornecedores>(lista);
 		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
 		
@@ -62,8 +64,9 @@ public class FornecedoresBEAN {
 			
 			ArrayList<Fornecedores>lista = FDAO.listar();
 			itens = new ListDataModel<Fornecedores>(lista);
-			
+			JSFUtil.adicionarMensagemSucesso("Salvo com Sucesso");
 		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
 	}
