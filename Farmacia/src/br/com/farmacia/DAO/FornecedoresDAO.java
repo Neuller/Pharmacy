@@ -105,7 +105,7 @@ public class FornecedoresDAO {
 
 		while (resultado.next()) {
 			Fornecedores item = new Fornecedores();
-			item.setIdFornecedores(resultado.getInt("idFornecedores"));
+			item.setIdFornecedores(resultado.getInt("IdFornecedores"));
 			item.setDescricao(resultado.getString("Descricao"));
 
 			lista.add(item);
@@ -144,19 +144,26 @@ public class FornecedoresDAO {
 	// Testes Unitários
 	public static void main(String[] args) {
 
-		/*
-		 * // Teste Inserção Fornecedores f1 = new Fornecedores();
-		 * f1.setDescricao("PHMINAS");
-		 * 
-		 * Fornecedores f2 = new Fornecedores(); f2.setDescricao("Print");
-		 * 
-		 * FornecedoresDAO FDAO = new FornecedoresDAO();
-		 * 
-		 * try { FDAO.salvar(f1); FDAO.salvar(f2); System.out.println(
-		 * "Salvo com Sucesso!"); } catch (SQLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); System.out.println(
-		 * "Erro ao Salvar!"); }
-		 * 
+		 /*
+		  // Teste Inserção 
+		Fornecedores f1 = new Fornecedores();
+		  f1.setDescricao("TecServ");
+		  
+		  Fornecedores f2 = new Fornecedores(); 
+		  f2.setDescricao("Print");
+		  
+		  FornecedoresDAO FDAO = new FornecedoresDAO();
+		  
+		  try { 
+			  FDAO.salvar(f1);
+		  FDAO.salvar(f2);
+		  System.out.println("Salvo com Sucesso!");
+		  } catch (SQLException e) { 
+            e.printStackTrace();
+		  System.out.println("Erro ao Salvar!");
+		  }
+		  
+
 		 * // Teste Deleção Fornecedores f1 = new Fornecedores();
 		 * f1.setIdFornecedores(2);
 		 * 

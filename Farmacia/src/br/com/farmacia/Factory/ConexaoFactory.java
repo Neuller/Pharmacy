@@ -11,6 +11,10 @@ public class ConexaoFactory {
 	private static final String URL = "jdbc:mysql://localhost:3306/Sistema";
 
 	public static Connection conectar() throws SQLException {
+		
+		// Referência ao Driver MySQL para Versões Antigas do JAVA
+		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+		
 		Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
 		return conexao;
 	}
