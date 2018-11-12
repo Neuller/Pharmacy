@@ -1,13 +1,10 @@
 package br.com.farmacia.Bean;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-
+import java.util.ArrayList;	
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.ListDataModel;
-
 import br.com.farmacia.DAO.FornecedoresDAO;
 import br.com.farmacia.Domain.Fornecedores;
 import br.com.farmacia.Util.JSFUtil;
@@ -16,18 +13,11 @@ import br.com.farmacia.Util.JSFUtil;
 @ManagedBean(name = "MBFornecedores")
 @ViewScoped
 public class FornecedoresBEAN {
-	
+
 	private Fornecedores fornecedores;
-	private ListDataModel<Fornecedores>itens;
+	private ArrayList<Fornecedores> itens;
+	private ArrayList<Fornecedores> itensFiltrados;
 
-	public ListDataModel<Fornecedores> getItens() {
-		return itens;
-	}
-
-	public void setItens(ListDataModel<Fornecedores> itens) {
-		this.itens = itens;
-	}
-	
 	public Fornecedores getFornecedores() {
 		return fornecedores;
 	}
@@ -35,40 +25,81 @@ public class FornecedoresBEAN {
 	public void setFornecedores(Fornecedores fornecedores) {
 		this.fornecedores = fornecedores;
 	}
+	
+	public ArrayList<Fornecedores> getItens() {
+		return itens;
+	}
+	
+	public void setItens(ArrayList<Fornecedores> itens) {
+		this.itens = itens;
+	}
+	
+	public ArrayList<Fornecedores> getItensFiltrados() {
+		return itensFiltrados;
+	}
+	
+	public void setItensFiltrados(ArrayList<Fornecedores> itensFiltrados) {
+		this.itensFiltrados = itensFiltrados;
+	}
 
 	// Construir quando a Página for iniciada
 	@PostConstruct
-	public void prepararPesquisa(){
-		
+	public void prepararPesquisa() {
+
 		try {
 			FornecedoresDAO FDAO = new FornecedoresDAO();
-			ArrayList<Fornecedores>lista = FDAO.listar();
-			//Converter em DataModel
-			itens = new ListDataModel<Fornecedores>(lista);
+			itens = FDAO.listar();
 		} catch (SQLException e) {
 			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void prepararNovo(){
+
+	public void prepararNovo() {
 		fornecedores = new Fornecedores();
 	}
-	
-	public void novo(){
-		
+
+	public void novo() {
+
 		try {
 			FornecedoresDAO FDAO = new FornecedoresDAO();
 			FDAO.salvar(fornecedores);
-			
-			ArrayList<Fornecedores>lista = FDAO.listar();
-			itens = new ListDataModel<Fornecedores>(lista);
+
+			itens = FDAO.listar();
+
 			JSFUtil.adicionarMensagemSucesso("Salvo com Sucesso");
 		} catch (SQLException e) {
 			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void excluir() {
+		try {
+			FornecedoresDAO FDAO = new FornecedoresDAO();
+			FDAO.excluir(fornecedores);
+
+			itens = FDAO.listar();
+
+			JSFUtil.adicionarMensagemSucesso("Excluído com Sucesso");
+		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("Não é possível excluir o Fornecedor");
+			e.printStackTrace();
+		}
+	}
+
+		public void editar() {
+			try {
+				FornecedoresDAO FDAO = new FornecedoresDAO();
+				FDAO.editar(fornecedores);
+
+				itens = FDAO.listar();
+
+				JSFUtil.adicionarMensagemSucesso("Editado com Sucesso");
+			} catch (SQLException e) {
+				JSFUtil.adicionarMensagemErro("ex.getMessage()");
+				e.printStackTrace();
+			}
+	}
 }
