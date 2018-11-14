@@ -67,5 +67,26 @@ public class ProdutosDAOTESTE {
 		PDAO.excluir(p);
 		
 	}
+	
+	@Test
+	@Ignore
+	public void editar() throws SQLException{
+		
+		Produtos p = new Produtos();
+		
+		p.setIdProdutos(3);
+		p.setDescricao("CAPTOPRIL 25MG");
+		p.setQuantidade(60);
+		p.setPreco(16.80);
+		
+		Fornecedores f = new Fornecedores();
+		f.setIdFornecedores(5);
+		p.setFornecedores(f);
+		
+		ProdutosDAO PDAO = new ProdutosDAO();
+		
+		PDAO.editar(p);
+		
+	}
 
 }
