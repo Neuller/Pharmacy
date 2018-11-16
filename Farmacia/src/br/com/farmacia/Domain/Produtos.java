@@ -6,7 +6,7 @@ public class Produtos {
 	private String Descricao;
 	private int Quantidade;
 	private double Preco;
-	private Fornecedores fornecedores;
+	private Fornecedores fornecedores = new Fornecedores();
 	
 	public int getIdProdutos() {
 		return idProdutos;
